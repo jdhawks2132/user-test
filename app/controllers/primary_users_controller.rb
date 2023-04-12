@@ -1,6 +1,11 @@
 class PrimaryUsersController < ApplicationController
   respond_to :json
 
+  def index
+    primary_users = PrimaryUser.all
+    render json: { primary_users: primary_users }, status: :ok
+  end
+
   def create
     primary_user = PrimaryUser.new(primary_user_params)
     if primary_user.save
