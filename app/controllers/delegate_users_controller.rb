@@ -8,7 +8,7 @@ class DelegateUsersController < ApplicationController
       )
     end
 
-    delegate_user = primary_user.delegate_users.new(delegate_user_params)
+    delegate_user = primary_user.build_delegate_user(delegate_user_params)
     if delegate_user.save
       render json: { delegate_user: delegate_user }, status: :created
     else
