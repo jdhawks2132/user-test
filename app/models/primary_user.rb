@@ -1,0 +1,2 @@
+class PrimaryUser < ApplicationRecord
+end
