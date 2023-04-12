@@ -6,6 +6,14 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    @current_user ||= PrimaryUser.find(session[:user_id]) if session[:user_id]
+    @current_user ||=
+      begin
+        if session[:user_id]
+          # Check if the user is a PrimaryUser
+          PrimaryUser.find_by(id: session[:user_id]) ||
+            # If not, check if the user is a DelegateUser
+            DelegateUser.find_by(id: session[:user_id])
+        end
+      end
   end
 end
