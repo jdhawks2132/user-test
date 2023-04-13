@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   namespace :external_users do
-    resources :sessions, only: [:create]
+    resources :sessions, only: [:create, :destroy]
   end
 
   resources :primary_users, only: %i[index create]

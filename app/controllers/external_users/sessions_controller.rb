@@ -5,7 +5,7 @@ class ExternalUsers::SessionsController < ApplicationController
     if user
       session[:user_id] = user.id
       render json: {
-               user_id: user.id,
+               user: user,
                message: 'Logged in successfully.',
              },
              status: :ok
