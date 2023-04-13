@@ -1,4 +1,6 @@
-class PrimaryUsersController < ApplicationController
+class Api::V1::PrimaryUsersController < ApiController
+  before_action :authenticate_user!, only: [:index]
+
   def index
     primary_users = PrimaryUser.all
     render json: { primary_users: primary_users }, status: :ok
@@ -51,6 +53,12 @@ class PrimaryUsersController < ApplicationController
         email: input['email'],
         is_primary: true,
       }
+    end
+  end
+
+  def authenticate_user!
+    unless @current_user
+      render json: { error: 'Unauthorized' }, status: :unauthorized
     end
   end
 end

@@ -1,4 +1,9 @@
-class DelegateUsersController < ApplicationController
+class Api::V1::DelegateUsersController < ApiController
+  def index
+    delegate_users = DelegateUser.all
+    render json: { delegate_users: delegate_users }, status: :ok
+  end
+
   def create
     primary_user =
       PrimaryUser.find_by(unique_url_hash: params[:unique_url_hash])
