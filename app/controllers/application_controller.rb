@@ -9,9 +9,7 @@ class ApplicationController < ActionController::API
     @current_user ||=
       begin
         if session[:user_id]
-          # Check if the user is a PrimaryUser
           PrimaryUser.find_by(id: session[:user_id]) ||
-            # If not, check if the user is a DelegateUser
             DelegateUser.find_by(id: session[:user_id])
         end
       end
