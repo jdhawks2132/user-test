@@ -18,10 +18,19 @@ class ExternalUsers::SessionsController < ApplicationController
   end
 
   def destroy
-    session.delete(:user_id)
-    @current_user = nil
+    user_id = params[:id].to_i
 
-    render json: { message: 'Logged out successfully.' }, status: :ok
+    if @current_user && user_id == @current_user.id
+      session.delete(:user_id)
+      @current_user = nil
+
+      render json: { message: 'Logged out successfully.' }, status: :ok
+    else
+      render json: {
+               error: 'Invalid user or not currently logged in.',
+             },
+             status: :unauthorized
+    end
   end
 
   private
